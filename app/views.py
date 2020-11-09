@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 import csv
 from django.contrib import messages
 from .models import Stock
@@ -11,7 +12,7 @@ def home(request):
     title = "Welcome"
     context={'title':title}
     return render(request,'home.html',context)
-
+@login_required
 def list_item(request):
     header = 'List of Items'
     form = StockSearchForm(request.POST or None)
@@ -36,7 +37,7 @@ def list_item(request):
         "queryset": queryset,
     }
     return render(request,'list_item.html',context)
-
+@login_required
 def add_items(request):
     form = StockCreateForm(request.POST or None)
     if form.is_valid():
