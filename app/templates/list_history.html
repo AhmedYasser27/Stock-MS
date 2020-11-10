@@ -54,6 +54,9 @@
             </ul>
             {% endif %}
             <div class="header"> {{header}}</div>
+            <form method='POST' action=''>{% csrf_token %}{{form|crispy}}
+                 <input type="submit" value='Search'/>
+            </form>
             <div class="display_table">
         <table class='table'>
           <thead>
