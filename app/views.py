@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 import csv
 from django.contrib import messages
-from .models import Stock
+from .models import Stock,StockHistory
 from .forms import *
 # Create your views here.
 
@@ -79,8 +79,9 @@ def issue_items(request, pk):
         form = IssueForm(request.POST or None, instance=queryset)
         if form.is_valid():
             instance = form.save(commit=False)
+            instance.receive_quantity = 0
             instance.quantity -= instance.issue_quantity
-            instance.issue_by = str(request.user)
+            instance.issue_by =str(request.user)
             messages.success(request, "Issued SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now left in Store")
             instance.save()
 
@@ -102,6 +103,8 @@ def receive_items(request, pk):
         form = ReceiveForm(request.POST or None, instance=queryset)
         if form.is_valid():
             instance = form.save(commit=False)
+            instance.issue_quantity = 0
+            instance.receive_by=str(request.user)
             instance.quantity += instance.receive_quantity
             instance.save()
             messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name)+"s now in Store")
@@ -129,3 +132,13 @@ def reorder_level(request, pk):
                 "form": form,
             }
         return render(request, "add_item.html", context)
+
+@login_required
+def list_history(request):
+        header = 'LIST OF ITEMS'
+        queryset = StockHistory.objects.all()
+        context = {
+            "header": header,
+            "queryset": queryset,
+        }
+        return render(request, "list_history.html",context)
