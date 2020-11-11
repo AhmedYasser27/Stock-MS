@@ -54,45 +54,50 @@
             </ul>
             {% endif %}
             <div class="header"> {{header}}</div>
-            <form method='POST' action=''>{% csrf_token %}{{form|crispy}}
-                 <input type="submit" value='Search'/>
-            </form>
-            <div class="display_table">
-        <table class='table'>
-          <thead>
-            <tr>
-              <th>COUNT</th>
-              <th>ID</th>
-              <th>CATEGORY</th>
-              <th>ITEM NAME</th>
-              <th>QUANTITY IN STORE</th>
-              <th>ISSUE QUANTITY</th>
-              <th>RECEIVE QUANTITY</th>
-              <th>RECEIVE BY</th>
-              <th>ISSUE BY</th>
-              <th>ISSUE TO</th>
-              <th>LAST UPDATED</th>
-            </tr>
-          </thead>
-        {% for instance in queryset %}
-            <tr>
+            <div class="row">
+                <div class="col-sm-2" >
 
-              <td>{{forloop.counter}}</td>
-              <td>{{instance.id}}</td>
-              <td>{{instance.category}}</td>
-              <td>{{instance.item_name}}</td>
-              <td>{{instance.quantity}}</td>
-              <td>{{instance.issue_quantity}}</td>
-              <td>{{instance.receive_quantity}}</td>
-              <td>{{instance.receive_by}}</td>
-              <td>{{instance.issue_by}}</td>
-              <td>{{instance.issue_to}}</td>
-              <td>{{instance.last_updated}}</td>
-            </tr>
-        {% endfor %}
-      </table>
-    </div>
-            <!--End of display table-->
+                        <form method='POST' action=''>{% csrf_token %}{{form|crispy}}
+                            <input type="submit" value='Search'/>
+                        </form>
+                </div>
+                <div class="col-sm-10" >    
+                        <div class="display_table">
+                    <table class='table'>
+                    <thead>
+                        <tr>
+                        <th>COUNT</th>
+                        <th>ID</th>
+                        <th>CATEGORY</th>
+                        <th>ITEM NAME</th>
+                        <th>QUANTITY IN STORE</th>
+                        <th>ISSUE QUANTITY</th>
+                        <th>RECEIVE QUANTITY</th>
+                        <th>RECEIVE BY</th>
+                        <th>ISSUE BY</th>
+                        <th>ISSUE TO</th>
+                        <th>LAST UPDATED</th>
+                        </tr>
+                    </thead>
+                    {% for instance in queryset %}
+                        <tr>
+
+                        <td>{{forloop.counter}}</td>
+                        <td>{{instance.id}}</td>
+                        <td>{{instance.category}}</td>
+                        <td>{{instance.item_name}}</td>
+                        <td>{{instance.quantity}}</td>
+                        <td>{{instance.issue_quantity}}</td>
+                        <td>{{instance.receive_quantity}}</td>
+                        <td>{{instance.receive_by}}</td>
+                        <td>{{instance.issue_by}}</td>
+                        <td>{{instance.issue_to}}</td>
+                        <td>{{instance.last_updated}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </div>
+            </div>   <!--End of display table-->
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js " integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n " crossorigin="anonymous "></script>
