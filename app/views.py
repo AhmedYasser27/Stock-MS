@@ -11,7 +11,9 @@ from .forms import *
 def home(request):
     title = "Welcome"
     context={'title':title}
-    return render(request,'home.html',context)
+    return redirect('/list_item')
+    # return render(request,'home.html',context)
+
 @login_required
 def list_item(request):
     header = 'List of Items'
@@ -20,8 +22,9 @@ def list_item(request):
     context = {'queryset':queryset,'header':header,'form':form}
     if request.method == 'POST':
         queryset = Stock.objects.filter(
-                                        item_name__icontains=form['item_name'].value()
-                                        )
+                                        #category__icontains=form['category'].value(),
+                                        item_name__icontains=form['item_name'].value(),
+        )
         if form['export_to_CSV'].value() == True:
                 response = HttpResponse(content_type='text/csv')
                 response['Content-Disposition'] = 'attachment; filename="List of stock.csv"'
@@ -44,7 +47,7 @@ def add_items(request):
         form.save()
         messages.success(request, 'Successfully Saved')
         return redirect('/list_item')
-    context = {'form':form,'title':'Add Items'}
+    context = {'form':form,'title':'ADD ITEMS'}
     return render(request,'add_item.html',context)
 
 def update_items(request,pk):
