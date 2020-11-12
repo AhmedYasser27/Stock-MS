@@ -65,6 +65,7 @@
                         </form>
                         <br>
                         <a href="/add_items"><div class="btn btn-primary mybutton">Add Items</div></a><br><br>
+                        <a href="/add_category"><div class="btn btn-primary mybutton">Add Category</div></a><br><br>
                         <a href="/list_history"><div class="btn btn-primary mybutton">List History</div></a><br>
                     </div>
                     <br>
@@ -78,8 +79,9 @@
                                             <th>ITEM NAME</th>
                                             <th>QUANTITY IN STORE</th>
                                             <!-- <th>TIMESTAMP</th> -->
-                                            <th>LAST UPDATED</th>
                                             <th>RECORDER LEVEL</th>
+                                            <th>LAST UPDATED</th>
+                                            
                                             <th>DELETE</th>
                                         </tr>
                                     </thead>
@@ -98,8 +100,8 @@
                                         {% endif %}
                                         </td>
                                         <!-- <td>{{instance.time_stamp}}</td> -->
-                                        <td>{{instance.last_updated}}</td>
                                         <td><a href="{% url 'reorder_level' instance.id %}">{{instance.reorder_level}}</a></td>
+                                        <td>{{instance.last_updated}}</td>
                                         <td>
                                             <a href="{% url 'delete_items' instance.id %}"><img src="{%static 'images/del.ico'%}" alt="Delete" height="20" width="20"></a>
                                         </td>

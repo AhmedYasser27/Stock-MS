@@ -16,7 +16,7 @@ def home(request):
 
 @login_required
 def list_item(request):
-    header = 'List of Items'
+    header = 'LIST OF ITEMS'
     form = StockSearchForm(request.POST or None)
     queryset = Stock.objects.all()
     context = {'queryset':queryset,'header':header,'form':form}
@@ -186,4 +186,16 @@ def list_history(request):
                 "queryset": queryset,
             }
             return render(request, "list_history.html", context)
+
+def add_category(request):
+        form = CategoryCreateForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Created')
+            return redirect('/list_item')
+        context = {
+            "form": form,
+            "title": "Add Category",
+        }
+        return render(request, "add_item.html", context)
 
