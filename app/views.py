@@ -149,12 +149,13 @@ def list_history(request):
             if request.method == 'POST':
                 category = form['category'].value()
                 queryset = StockHistory.objects.filter(
-                                        item_name__icontains=form['item_name'].value(),
-                                        # last_updated__range=[
-                                        #                         form['start_date'].value(),
-                                        #                         form['end_date'].value()
-                                        #                     ]
-                                        )
+                                         item_name__icontains=form['item_name'].value(),
+                                        #  category__icontains=form['category'].value(),
+                                         last_updated__range=[
+                                                                form['start_date'].value(),
+                                                                form['end_date'].value(),
+                                                            ]
+                                                       )
 
                 if (category != ''):
                     queryset = queryset.filter(category_id=category)

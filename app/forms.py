@@ -8,14 +8,14 @@ class StockCreateForm(forms.ModelForm):
         model = Stock
         fields = ['category', 'item_name', 'quantity']
         
-       # def clean_category(self):
-       #        category = self.cleaned_data.get('category')
-       #        if not category:
-       #               raise forms.ValidationError('This field is required')
+        def clean_category(self):
+               category = self.cleaned_data.get('category')
+               if not category:
+                    raise forms.ValidationError('This field is required')
        #        for instance in Stock.objects.all():
        #               if instance.category == category:
        #                      raise forms.ValidationError(str(category) + ' is already created')
-       #        return category
+               return category
 
        def clean_item_name(self):
               item_name = self.cleaned_data.get('item_name')
@@ -32,12 +32,12 @@ class StockHistorySearchForm(forms.ModelForm):
 	end_date = forms.DateTimeField(required=False)
 	class Meta:
 		model = StockHistory
-		fields = ['category', 'item_name', 'start_date', 'end_date']
+		fields = ['item_name', 'start_date', 'end_date']
 class StockSearchForm(forms.ModelForm):
     export_to_CSV = forms.BooleanField(required=False)
     class Meta:
         model=Stock
-        fields =['category','item_name']
+        fields =['item_name']
 
 class StockUpdateForm(forms.ModelForm):
     class Meta:
